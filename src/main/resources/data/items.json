@@ -1,0 +1,527 @@
+[
+  {
+    "id": "1",
+    "name": "Awesome Widget",
+    "price": "19.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "2",
+    "name": "Super Gear",
+    "price": "12.50",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "3",
+    "name": "Mega Gadget",
+    "price": "39.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "4",
+    "name": "Turbo Gizmo",
+    "price": "29.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "5",
+    "name": "Power Device",
+    "price": "24.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "6",
+    "name": "Ultimate Appliance",
+    "price": "99.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "7",
+    "name": "Lightning Widget",
+    "price": "14.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "8",
+    "name": "Smart Gizmo",
+    "price": "49.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "9",
+    "name": "Fantastic Tool",
+    "price": "9.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "10",
+    "name": "Deluxe Gadget",
+    "price": "59.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "11",
+    "name": "Premium Appliance",
+    "price": "149.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "12",
+    "name": "Mega Widget",
+    "price": "34.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "13",
+    "name": "Pro Device",
+    "price": "79.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "14",
+    "name": "Handy Tool",
+    "price": "12.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "15",
+    "name": "Turbo Gadget",
+    "price": "69.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "16",
+    "name": "Super Appliance",
+    "price": "199.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "17",
+    "name": "Giga Gizmo",
+    "price": "44.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "18",
+    "name": "Smart Device",
+    "price": "89.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "19",
+    "name": "Amazing Tool",
+    "price": "14.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "20",
+    "name": "Ultra Widget",
+    "price": "79.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "21",
+    "name": "Pro Appliance",
+    "price": "249.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "22",
+    "name": "Power Gizmo",
+    "price": "59.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "23",
+    "name": "Advanced Device",
+    "price": "129.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "24",
+    "name": "Master Tool",
+    "price": "17.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "25",
+    "name": "Thunder Widget",
+    "price": "94.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "26",
+    "name": "Elite Appliance",
+    "price": "299.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "27",
+    "name": "Lightning Gizmo",
+    "price": "74.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "28",
+    "name": "Smart Widget",
+    "price": "149.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "29",
+    "name": "Ultimate Tool",
+    "price": "19.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "30",
+    "name": "Mega Gadget",
+    "price": "109.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "31",
+    "name": "Premium Appliance",
+    "price": "349.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "32",
+    "name": "Turbo Gizmo",
+    "price": "89.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "33",
+    "name": "Super Device",
+    "price": "179.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "34",
+    "name": "Fantastic Tool",
+    "price": "24.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "35",
+    "name": "Deluxe Widget",
+    "price": "124.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "36",
+    "name": "Pro Appliance",
+    "price": "399.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "37",
+    "name": "Power Gizmo",
+    "price": "99.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "38",
+    "name": "Smart Device",
+    "price": "209.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "39",
+    "name": "Handy Tool",
+    "price": "29.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "40",
+    "name": "Thunder Widget",
+    "price": "139.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "41",
+    "name": "Elite Appliance",
+    "price": "499.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "42",
+    "name": "Lightning Gizmo",
+    "price": "119.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "43",
+    "name": "Smart Widget",
+    "price": "259.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "44",
+    "name": "Ultimate Tool",
+    "price": "34.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "45",
+    "name": "Mega Gadget",
+    "price": "159.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "46",
+    "name": "Premium Appliance",
+    "price": "599.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "47",
+    "name": "Turbo Gizmo",
+    "price": "149.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "48",
+    "name": "Super Device",
+    "price": "249.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "49",
+    "name": "Fantastic Tool",
+    "price": "39.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "50",
+    "name": "Deluxe Widget",
+    "price": "199.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "51",
+    "name": "Pro Appliance",
+    "price": "699.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "52",
+    "name": "Power Gizmo",
+    "price": "179.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "53",
+    "name": "Smart Device",
+    "price": "309.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "54",
+    "name": "Handy Tool",
+    "price": "49.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "55",
+    "name": "Thunder Widget",
+    "price": "229.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "56",
+    "name": "Elite Appliance",
+    "price": "799.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "57",
+    "name": "Lightning Gizmo",
+    "price": "199.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "58",
+    "name": "Smart Widget",
+    "price": "359.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "59",
+    "name": "Ultimate Tool",
+    "price": "49.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "60",
+    "name": "Mega Gadget",
+    "price": "259.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "61",
+    "name": "Premium Appliance",
+    "price": "899.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "62",
+    "name": "Turbo Gizmo",
+    "price": "199.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "63",
+    "name": "Super Device",
+    "price": "369.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "64",
+    "name": "Fantastic Tool",
+    "price": "59.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "65",
+    "name": "Deluxe Widget",
+    "price": "249.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "66",
+    "name": "Pro Appliance",
+    "price": "999.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "67",
+    "name": "Power Gizmo",
+    "price": "229.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "68",
+    "name": "Smart Device",
+    "price": "409.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "69",
+    "name": "Handy Tool",
+    "price": "69.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "70",
+    "name": "Thunder Widget",
+    "price": "299.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "71",
+    "name": "Elite Appliance",
+    "price": "199.99",
+    "brand": "ABC Company",
+    "category": "Appliances"
+  },
+  {
+    "id": "72",
+    "name": "Lightning Gizmo",
+    "price": "249.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "73",
+    "name": "Smart Widget",
+    "price": "459.99",
+    "brand": "PQR Inc.",
+    "category": "Electronics"
+  },
+  {
+    "id": "74",
+    "name": "Ultimate Tool",
+    "price": "69.99",
+    "brand": "ABC Company",
+    "category": "Tools"
+  },
+  {
+    "id": "75",
+    "name": "Mega Gadget",
+    "price": "299.99",
+    "brand": "XYZ Corporation",
+    "category": "Electronics"
+  }
+]
