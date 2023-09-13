@@ -66,4 +66,16 @@ public class ItemController {
         return listOfItems;
     }
 
+    @GetMapping("boolQuery/{name}/{price}")
+    public List<Item> boolQuery(@PathVariable String name, @PathVariable Double price)  {
+        SearchResponse<Item> searchResponse =  itemService.boolQuery(name,price);
+        log.info(searchResponse.hits().hits().toString());
+
+        List<Hit<Item>> listOfHits= searchResponse.hits().hits();
+        List<Item> listOfItems  = new ArrayList<>();
+        for(Hit<Item> hit : listOfHits){
+            listOfItems.add(hit.source());
+        }
+        return listOfItems;
+    }
 }
