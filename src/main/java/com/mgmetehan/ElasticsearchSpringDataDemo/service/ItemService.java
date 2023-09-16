@@ -77,16 +77,4 @@ public class ItemService {
           throw new RuntimeException(e);
       }
     }
-
-    public SearchResponse<Item> boolQuery(String name, Double price) {
-        try {
-            Supplier<Query> supplier = ESUtil.supplierQueryForBoolQuery(name, price);
-            SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("products").query(supplier.get()), Item.class);
-            log.info("elasticsearch query is " + supplier.get().toString());
-            return searchResponse;
-        }catch (IOException e){
-            log.error("Error while getting all items", e);
-            throw new RuntimeException(e);
-        }
-    }
 }
