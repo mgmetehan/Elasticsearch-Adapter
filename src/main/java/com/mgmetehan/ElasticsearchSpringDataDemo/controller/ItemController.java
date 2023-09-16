@@ -25,6 +25,11 @@ import java.util.List;
 public class ItemController {
     private final ItemService itemService;
 
+    @PostMapping()
+    public Item createIndex(@RequestBody Item item) {
+        return itemService.createIndex(item);
+    }
+
     @PostMapping("/init-index")
     public void addItemsFromJson() {
         itemService.addItemsFromJson();
@@ -55,12 +60,26 @@ public class ItemController {
 
     @GetMapping("/search/{fieldValue}")
     public List<Item> matchAllItemsWithName(@PathVariable String fieldValue) throws IOException {
-        SearchResponse<Item> searchResponse =  itemService.searchName(fieldValue);
+        SearchResponse<Item> searchResponse = itemService.searchName(fieldValue);
         log.info(searchResponse.hits().hits().toString());
 
-        List<Hit<Item>> listOfHits= searchResponse.hits().hits();
-        List<Item> listOfItems  = new ArrayList<>();
-        for(Hit<Item> hit : listOfHits){
+        List<Hit<Item>> listOfHits = searchResponse.hits().hits();
+        List<Item> listOfItems = new ArrayList<>();
+        for (Hit<Item> hit : listOfHits) {
+            listOfItems.add(hit.source());
+        }
+        return listOfItems;
+    }
+
+    @GetMapping("/boolQuery/{name}/{brand}")
+    public List<Item> boolQuery(@PathVariable String name, @PathVariable String brand) throws IOException {
+
+        SearchResponse<Item> searchResponse = itemService.boolQuery(name, brand);
+        log.info(searchResponse.hits().hits().toString());
+
+        List<Hit<Item>> listOfHits = searchResponse.hits().hits();
+        List<Item> listOfItems = new ArrayList<>();
+        for (Hit<Item> hit : listOfHits) {
             listOfItems.add(hit.source());
         }
         return listOfItems;

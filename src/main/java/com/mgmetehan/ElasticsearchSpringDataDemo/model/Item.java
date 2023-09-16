@@ -30,4 +30,3 @@ public class Item {
     @Field(name = "category", type = FieldType.Keyword)
     private String category;
 }
-

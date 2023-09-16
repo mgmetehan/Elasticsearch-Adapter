@@ -519,9 +519,30 @@
   },
   {
     "id": "75",
+    "name": "mega gadget",
+    "price": "299.99",
+    "brand": "xyz corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "76",
     "name": "Mega Gadget",
     "price": "299.99",
     "brand": "XYZ Corporation",
+    "category": "Electronics"
+  },
+  {
+    "id": "77",
+    "name": "Premium",
+    "price": "299.99",
+    "brand": "Walmart",
+    "category": "Electronics"
+  },
+  {
+    "id": "78",
+    "name": "premium",
+    "price": "299.99",
+    "brand": "walmart",
     "category": "Electronics"
   }
 ]

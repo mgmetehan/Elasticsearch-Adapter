@@ -1,5 +1,19 @@
 {
-  "index": {
-
+  "settings": {
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "whitespace_analyzer": {
+            "type": "custom",
+            "tokenizer": "whitespace"
+          },
+          "case_insensitive_analyzer": {
+            "type": "custom",
+            "tokenizer": "keyword",
+            "filter": ["lowercase"]
+          }
+        }
+      }
+    }
   }
 }

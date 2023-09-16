@@ -26,6 +26,10 @@ public class ItemService {
     private final JsonDataService jsonDataService;
     private final ElasticsearchClient elasticsearchClient;
 
+    public Item createIndex(Item item) {
+        return itemRepository.save(item);
+    }
+
     public void addItemsFromJson() {
         log.info("Adding Items from Json");
         List<Item> Items = jsonDataService.readItemsFromJson();
@@ -76,5 +80,12 @@ public class ItemService {
           log.error("Error while getting all items", e);
           throw new RuntimeException(e);
       }
+    }
+
+    public SearchResponse<Item> boolQuery(String name, String brand) throws IOException {
+        Supplier<Query> supplier  = ESUtil.supplierQueryForBoolQuery(name, brand);
+        SearchResponse<Item> searchResponse = elasticsearchClient.search(s->s.index("items_index").query(supplier.get()),Item.class);
+        log.info("elasticsearch query is "+supplier.get().toString());
+        return searchResponse;
     }
 }
