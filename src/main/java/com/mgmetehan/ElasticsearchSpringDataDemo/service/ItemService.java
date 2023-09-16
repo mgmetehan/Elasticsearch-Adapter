@@ -4,7 +4,6 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import com.mgmetehan.ElasticsearchSpringDataDemo.dto.SearchRequestDto;
 import com.mgmetehan.ElasticsearchSpringDataDemo.model.Item;
 import com.mgmetehan.ElasticsearchSpringDataDemo.repository.ItemRepository;
 import com.mgmetehan.ElasticsearchSpringDataDemo.util.ESUtil;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -71,21 +71,29 @@ public class ItemService {
     }
 
     public SearchResponse<Item> searchName(String fieldValue) {
-      try {
-          Supplier<Query> supplier  = ESUtil.supplierWithNameField(fieldValue);
-          SearchResponse<Item> searchResponse = elasticsearchClient.search(s->s.index("items_index").query(supplier.get()),Item.class);
-          log.info("elasticsearch query is "+supplier.get().toString());
-          return searchResponse;
-      }catch (IOException e){
-          log.error("Error while getting all items", e);
-          throw new RuntimeException(e);
-      }
+        try {
+            Supplier<Query> supplier = ESUtil.supplierWithNameField(fieldValue);
+            SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
+            log.info("elasticsearch query is " + supplier.get().toString());
+            return searchResponse;
+        } catch (IOException e) {
+            log.error("Error while getting all items", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Item> searchItemsWithQuery(String name, String brand) {
+        try {
+            return itemRepository.searchNameAndBrand(name, brand);
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 
     public SearchResponse<Item> boolQuery(String name, String brand) throws IOException {
-        Supplier<Query> supplier  = ESUtil.supplierQueryForBoolQuery(name, brand);
-        SearchResponse<Item> searchResponse = elasticsearchClient.search(s->s.index("items_index").query(supplier.get()),Item.class);
-        log.info("elasticsearch query is "+supplier.get().toString());
+        Supplier<Query> supplier = ESUtil.supplierQueryForBoolQuery(name, brand);
+        SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
+        log.info("elasticsearch query is " + supplier.get().toString());
         return searchResponse;
     }
 }
