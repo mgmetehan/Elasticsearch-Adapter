@@ -42,20 +42,21 @@ public class ESUtil {
     public static BoolQuery boolQuery(String name, String brand) {
 
         val boolQuery = new BoolQuery.Builder();
-        return boolQuery.filter(termQuery(name)).must(matchQuery(brand)).build();
+        return boolQuery.filter(termQuery("name",name)).must(termQuery("brand",brand)).build();
     }
-
-    public static List<Query> termQuery(String name) {
+    //termQuery kesin eslesme icin kullanilir
+    public static List<Query> termQuery(String field, String value) {
         final List<Query> terms = new ArrayList<>();
         val termQuery = new TermQuery.Builder();
-        terms.add(Query.of(q -> q.term(termQuery.field("name").value(name).build())));
+        terms.add(Query.of(q -> q.term(termQuery.field(field).value(value).build())));
         return terms;
     }
 
-    public static List<Query> matchQuery(String brand) {
+    //matchQuery daha esnek bir arama secenegi sunar ve belge iceriginde benzer terimleri bulabilir
+    public static List<Query> matchQuery(String field, String value) {
         final List<Query> matches = new ArrayList<>();
         val matchQuery = new MatchQuery.Builder();
-        matches.add(Query.of(q -> q.match(matchQuery.field("brand").query(brand).build())));
+        matches.add(Query.of(q -> q.match(matchQuery.field(field).query(value).build())));
         return matches;
     }
 }
