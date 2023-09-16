@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -103,5 +104,12 @@ public class ItemService {
                 .search(s -> s.index("items_index").query(supplier.get()), Item.class);
         log.info(" elasticsearch auto suggestion query" + supplier.get().toString());
         return searchResponse;
+    }
+
+    public List<String> autoSuggestItemWithQuery(String name) {
+        List<Item> items = itemRepository.customAutocompleteSearch(name);
+        return items.stream()
+                .map(Item::getName)
+                .collect(Collectors.toList());
     }
 }

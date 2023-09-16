@@ -2,7 +2,6 @@ package com.mgmetehan.ElasticsearchSpringDataDemo.controller;
 
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
-import com.mgmetehan.ElasticsearchSpringDataDemo.dto.SearchRequestDto;
 import com.mgmetehan.ElasticsearchSpringDataDemo.model.Item;
 import com.mgmetehan.ElasticsearchSpringDataDemo.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -105,13 +104,18 @@ public class ItemController {
             for (Hit<Item> hit : hitList) {
                 ItemList.add(hit.source());
             }
-            HashSet<String> listOfItemNames = new HashSet<String>();
+            HashSet<String> listOfItemNames = new HashSet<>();
             for (Item Item : ItemList) {
                 listOfItemNames.add(Item.getName());
             }
             return listOfItemNames;
         } catch (Exception e) {
-            return new HashSet<String>();
+            return new HashSet<>();
         }
+    }
+
+    @GetMapping("/suggestions/{name}")
+    public List<String> autoSuggestItemSearchWithQuery(@PathVariable String name) {
+        return itemService.autoSuggestItemWithQuery(name);
     }
 }
