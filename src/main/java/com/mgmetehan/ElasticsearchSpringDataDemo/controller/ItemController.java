@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -95,4 +96,22 @@ public class ItemController {
         return listOfItems;
     }
 
+    @GetMapping("/autoSuggest/{name}")
+    public HashSet<String> autoSuggestItemSearch(@PathVariable String name) {
+        try {
+            SearchResponse<Item> searchResponse = itemService.autoSuggestItem(name);
+            List<Hit<Item>> hitList = searchResponse.hits().hits();
+            List<Item> ItemList = new ArrayList<>();
+            for (Hit<Item> hit : hitList) {
+                ItemList.add(hit.source());
+            }
+            HashSet<String> listOfItemNames = new HashSet<String>();
+            for (Item Item : ItemList) {
+                listOfItemNames.add(Item.getName());
+            }
+            return listOfItemNames;
+        } catch (Exception e) {
+            return new HashSet<String>();
+        }
+    }
 }

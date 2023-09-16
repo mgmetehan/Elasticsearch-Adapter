@@ -59,4 +59,14 @@ public class ESUtil {
         matches.add(Query.of(q -> q.match(matchQuery.field(field).query(value).build())));
         return matches;
     }
+
+    public static Supplier<Query> createSupplierAutoSuggest(String name) {
+        Supplier<Query> supplier = () -> Query.of(q -> q.match(createAutoSuggestMatchQuery(name)));
+        return supplier;
+    }
+
+    public static MatchQuery createAutoSuggestMatchQuery(String name) {
+        val autoSuggestQuery = new MatchQuery.Builder();
+        return autoSuggestQuery.field("name").query(name).analyzer("standard").build();
+    }
 }

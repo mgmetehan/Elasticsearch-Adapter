@@ -96,4 +96,12 @@ public class ItemService {
         log.info("elasticsearch query is " + supplier.get().toString());
         return searchResponse;
     }
+
+    public SearchResponse<Item> autoSuggestItem(String name) throws IOException {
+        Supplier<Query> supplier = ESUtil.createSupplierAutoSuggest(name);
+        SearchResponse<Item> searchResponse = elasticsearchClient
+                .search(s -> s.index("items_index").query(supplier.get()), Item.class);
+        log.info(" elasticsearch auto suggestion query" + supplier.get().toString());
+        return searchResponse;
+    }
 }
