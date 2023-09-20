@@ -2,7 +2,9 @@
 
 ## Icerik
 - [Elasticsearch'un avantajlari](#elasticsearchun-avantajlari)
-
+- [Tech Stack](#tech-stack)
+- [Requirements](#requirements)
+- [Build & Run](#build--run)
 ##  Elasticsearch'un avantajlari
 
 <p align="center">
@@ -57,14 +59,14 @@
 
 
 
-### Tech Stack
+## Tech Stack
 - Java 17
 - Spring Boot 3.0
 - Spring Elasticsearch Data
 - Docker
 - Lombok
 
-### Requirements
+## Requirements
 
 For building and running the application you need:
 - JDK 17 or newer
@@ -72,7 +74,7 @@ For building and running the application you need:
 - [Lombok](https://projectlombok.org/)
 
 
-### Build & Run
+## Build & Run
 ```
   docker-compose -f docker-compose.yml up -d
 ```
