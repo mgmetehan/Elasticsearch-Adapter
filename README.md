@@ -2,6 +2,10 @@
 
 ##  Elasticsearch'un avantajlari
 
+<p align="center">
+    <img src="png/benefits-elastic.png" alt="benefits-elastic" width="%100" height="600" style="border-radius: 20px">
+</p>
+
 - `High Performance(Yuksek Performans):`
 
   Elasticsearch, guclu tam metin arama yetenekleriyle bilinir. Apache Lucene altyapisi kullanarak ters indeksleme ve gelismis arama algoritmalari kullanarak hizli ve dogru arama sonuclari saglar. Tipik bir SQL veritabanindan daha hizlidir.
