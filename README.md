@@ -287,6 +287,35 @@ Elasticsearch'in belgeleri siralamak icin kullanabileceginiz cesitli siralama is
     <img src="png/companies.png" alt="companies" width="%100" height="600" style="border-radius: 20px">
 </p>
 
+## Elasticsearch'u Docker Uzerinde Calistirma
+Elasticsearh'u docker uzerinden calistirmak icin docker-compose.yml dosyasini kullanabilirsiniz.
+Bu dosyayi kullanarak Elasticsearch 8.8.0 surumunu calistirabilirsiniz.
+
+```dockerfile
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:8.8.0
+    environment:
+      - discovery.type=single-node
+      - validate_after_inactivity=0
+      - max_open_files=65536
+      - max_content_length_in_bytes=100000000
+      - transport.host=elasticsearch
+      - xpack.security.enabled=false
+    volumes:
+      - $HOME/app:/var/app
+    networks:
+      - my-network
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+networks:
+  my-network:
+```
+
+
 ## Tech Stack
 
 - Java 17
