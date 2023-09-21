@@ -3,6 +3,7 @@
 ## Icerik
 
 - [Elasticsearch'un avantajlari](#elasticsearchun-avantajlari)
+- [Elasticsearch Temel Kavramlari neler?](#elasticsearch-temel-kavramlari-neler)
 - [Elasticsearch vs SQL](#elasticsearch-vs-sql)
 - [Elasticsearch'u Kimler Kullaniyor?](#elasticsearchu-kimler-kullaniyor)
 - [Tech Stack](#tech-stack)
@@ -71,6 +72,72 @@
 - `Easy Application Development:`
 
   Kolay uygulama gelistirme Java, Python, PHP, JavaScript, Node.js, Ruby ve daha bircok dil icin destek sunar.
+
+## Elasticsearch Temel Kavramlari neler?
+index = database<br>
+field = column<br>
+document = row<br>
+type = table<br>
+
+<details>
+<summary>Index</summary>
+Elasticsearch'te verilerin duzenli bir sekilde depolandigi birimdir ve genellikle bir kutuphane koleksiyonunu temsil eder. Ornegin, bir kutuphane sistemi, kitaplarin depolandigi bir "kitaplar" endeksi olusturabilir.
+</details>
+
+<details>
+<summary>Document</summary>
+Elasticsearch endekslerinde saklanan verilerin temel yapi tasidir. Genellikle JSON formatinda bilgileri icerir ve bir kitabin tum ayrintilarini icerebilir, bu da kitap adi, yazar, yayin tarihi gibi bilgileri icerir.
+</details>
+
+<details>
+<summary>Field</summary>
+Elasticsearch dokumanlari icindeki verileri temsil eden bilesendir. Ornegin, bir kitap dokumaninda "kitap adi" veya "yazar" gibi alanlar birer field'dir.
+</details>
+
+<details>
+<summary>Type (Tur, Artik Onerilmemektedir)</summary>
+Elasticsearch 6.0 ve sonraki surumlerde kullanimdan kaldirilmis olsa da, Elasticsearch 5.0 ve onceki surumlerde bulunan bir kavramdir. Type, bir dizindeki belgelerin altinda bulunan turdur.
+</details>
+
+<details>
+<summary>Indexing</summary>
+Elasticsearch'te yeni dokumanlarin endekslendigi veya mevcut dokumanlarin guncellendigi islemdir. Veri eklemek veya degistirmek icin kullanilir.
+</details>
+
+<details>
+<summary>Query</summary>
+Elasticsearch'te veri sorgulamak icin kullanilan bir terimdir. Belirli kriterlere uyan dokumanlari aramak veya filtrelemek icin kullanilir.
+</details>
+
+<details>
+<summary>Mapping</summary>
+Elasticsearch'te veri yapisini tanimlayan bir yapidir. Hangi alanlarin hangi veri turlerini icerdigini ve hangi analizleri uyguladiginizi belirtir. Ornegin, bir alanin metin veya sayi veri turunde oldugunu ve dil analizi uygulandigini belirtmek icin kullanilir.
+</details>
+
+<details>
+<summary>Analysis</summary>
+Elasticsearch'te metin verilerinin islenme surecidir. Metinleri dil analizi ve belirli kriterlere gore ayristirma islemi icerir. Bu, metin tabanli aramalari daha etkili hale getirir.
+</details>
+
+<details>
+<summary>Cluster</summary>
+Elasticsearch sunucularinin bir araya gelerek olusturdugu bir yapidir. Verilerin guvenli bir sekilde depolanmasi ve sorgulanmasi icin kullanilir.
+</details>
+
+<details>
+<summary>Node</summary>
+Elasticsearch kumesinin bir parcasi olan bir sunucu veya dugumdur. Verileri depolar ve sorgulari isler. Birden cok node, bir cluster olusturur.
+</details>
+
+<details>
+<summary>Shard</summary>
+Elasticsearch endekslerinin bolundugu fiziksel veya mantiksal birimlerdir. Veri dagitimini ve performansi optimize etmeye yardimci olur.
+</details>
+
+<details>
+<summary>Replica</summary>
+Bir endeksin yedek kopyasidir ve veri yedeklemesi saglar. Arizali bir nodenin yerine gecebilir ve veri kaybini onler.
+</details>
 
 ## Elasticsearch vs SQL
 
@@ -143,6 +210,7 @@ For building and running the application you need:
 - [Elasticsearch 8.x](https://www.elastic.co/downloads/elasticsearch)
 - [Maven](https://maven.apache.org)
 - [Lombok](https://projectlombok.org/)
+- [Docker](https://www.docker.com/)
 
 ## Build & Run
 
