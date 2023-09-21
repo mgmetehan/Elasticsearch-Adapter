@@ -5,6 +5,7 @@
 - [Full Text Search Nedir?](#full-text-search-nedir)
 - [Elasticsearch'un Avantajlari](#elasticsearchun-avantajlari)
 - [Elasticsearch Temel Kavramlari Neler?](#elasticsearch-temel-kavramlari-neler)
+- [Elasticsearch Kullanim Alanlari](#elasticsearch-kullanim-alanlari)
 - [Elasticsearch vs SQL](#elasticsearch-vs-sql)
 - [Elasticsearch Sorgu Tipleri](#elasticsearch-sorgu-tipleri)
 - [Elasticsearch'u Kimler Kullaniyor?](#elasticsearchu-kimler-kullaniyor)
