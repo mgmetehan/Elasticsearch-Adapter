@@ -5,6 +5,8 @@
 - [Tech Stack](#tech-stack)
 - [Requirements](#requirements)
 - [Build & Run](#build--run)
+- [Elasticsearch'u Kimler Kullaniyor?](#elasticsearchu-kimler-kullaniyor)
+
 ##  Elasticsearch'un avantajlari
 
 <p align="center">
@@ -57,7 +59,53 @@
 
   Kolay uygulama gelistirme Java, Python, PHP, JavaScript, Node.js, Ruby ve daha bircok dil icin destek sunar.
 
+##  Elasticsearch'u Kimler Kullaniyor?
+<p align="center">
+    <img src="png/companies.png" alt="companies" width="%100" height="600" style="border-radius: 20px">
+</p>
 
+##  Elasticsearch vs SQL
+<p align="center">
+    <img src="png/comparison.png" alt="companies" width="%100" height="600" style="border-radius: 20px">
+</p>
+
+<details>
+<summary>Summary Query Nedir?</summary>
+
+**Summary Query:** Genel bir bakis sunar. Genellikle veri toplamalarini ve sonuclari daha yuksek duzeyde ozetlemeyi amaclar.
+
+Ornegin, bir musterinin toplam siparis tutarini gosterir:
+```sql
+SELECT musteri_id,
+       ad,
+       soyad,
+       SUM(siparis_tutari) AS toplam_siparis_tutari
+FROM Musteriler
+GROUP BY musteri_id, ad, soyad
+```
+
+Bu sorgu, her musterinin adini, soyadini ve toplam siparis tutarini ozetler.
+</details> 
+
+<details>
+<summary>Detail Query Nedir?</summary>
+
+**Detail Query:** daha spesifik veya ayrintili verileri cekmeyi amaclar. Bu tur sorgular, genellikle belirli bir kosulu karsilayan veya belirli bir veri kesimini getiren sorgulardir. 
+
+Ornegin, belirli bir musterinin siparislerini listeleyecektir.
+```sql
+SELECT musteri_id,
+       siparis_id,
+       siparis_tarihi,
+       urun_adi,
+       miktar,
+       siparis_tutari
+FROM Siparisler
+WHERE musteri_id = 'belirli_musteri_id'
+```
+
+Bu sorgu, belirli bir musterinin (musteri kimlik numarasina gore filtrelenmis) her bir siparisini ve siparislerin ayrintilarini listeleyecektir.
+</details> 
 
 ## Tech Stack
 - Java 17
