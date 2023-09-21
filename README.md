@@ -1,16 +1,31 @@
 # Elasticsearch-Spring-Data-Demo
 
 ## Icerik
-
-- [Elasticsearch'un avantajlari](#elasticsearchun-avantajlari)
-- [Elasticsearch Temel Kavramlari neler?](#elasticsearch-temel-kavramlari-neler)
+- [Elasticsearch Nedir?](#elasticsearch-nedir)
+- [Full Text Search Nedir?](#full-text-search-nedir)
+- [Elasticsearch'un Avantajlari](#elasticsearchun-avantajlari)
+- [Elasticsearch Temel Kavramlari Neler?](#elasticsearch-temel-kavramlari-neler)
 - [Elasticsearch vs SQL](#elasticsearch-vs-sql)
+- [Elasticsearch Sorgu Tipleri](#elasticsearch-sorgu-tipleri)
 - [Elasticsearch'u Kimler Kullaniyor?](#elasticsearchu-kimler-kullaniyor)
 - [Tech Stack](#tech-stack)
 - [Requirements](#requirements)
 - [Build & Run](#build--run)
 
-## Elasticsearch'un avantajlari
+## Elasticsearch Nedir?
+Elasticsearch, veri arama, analiz ve gorsellestirme islemlerini hizli ve etkili bir sekilde gerceklestirmenizi saglayan bir acik kaynakli veri arama ve analiz platformudur. 
+Elasticsearch, buyuk miktardaki verileri duzenli bir sekilde saklayabilen, hizli ve olceklenebilir bir veritabani ve arama motoru(**full-text search**) olarak dusunulebilir.
+
+## Full Text Search Nedir?
+<p align="center">
+    <img src="png/full-text-search.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
+</p>
+
+<p align="center">
+    <img src="png/full-text-search-2.png" alt="full-text-search" width="%100" height="600" style="border-radius: 20px">
+</p>
+
+## Elasticsearch'un Avantajlari
 
 <p align="center">
     <img src="png/benefits-elastic.png" alt="benefits-elastic" width="%100" height="600" style="border-radius: 20px">
@@ -73,7 +88,22 @@
 
   Kolay uygulama gelistirme Java, Python, PHP, JavaScript, Node.js, Ruby ve daha bircok dil icin destek sunar.
 
-## Elasticsearch Temel Kavramlari neler?
+## Elasticsearch Kullanim Alanlari
+`1. Web Arama ve Indeksleme`<br>
+
+`2. Metin Analizi ve Madencilik`<br>
+
+`3. Log Yonetimi`<br>
+
+`4. Muzik ve Medya Isleme`<br>
+
+`5. E-ticaret ve Pazarlama`<br>
+
+`6. Urun ve Icerik Onerileri`<br>
+
+`7. Finansal Veri Analizi`<br>
+
+## Elasticsearch Temel Kavramlari Neler?
 index = database<br>
 field = column<br>
 document = row<br>
@@ -187,6 +217,68 @@ WHERE musteri_id = 'belirli_musteri_id'
 Bu sorgu, belirli bir musterinin (musteri kimlik numarasina gore filtrelenmis) her bir siparisini ve siparislerin
 ayrintilarini listeleyecektir.
 </details> 
+
+## Elasticsearch Sorgu Tipleri
+
+<details>
+<summary>Match Query</summary>
+Belirli bir metin terimini veya sorgu ifadesini arar ve eslesen belgeleri dondurur.
+</details>
+
+<details>
+<summary>Term Query</summary>
+Belirli bir alanin degerinin tam eslesme icin kullanilir.
+</details>
+
+<details>
+<summary>Bool Query</summary>
+Mantiksal operatorleri (AND, OR, NOT) kullanarak birden cok sorguyu birlestirmek icin kullanilir.
+</details>
+
+<details>
+<summary>Range Query</summary>
+Bir alanin belirli bir araliga dusup dusmedigini kontrol eder.
+</details>
+
+<details>
+<summary>Match Phrase Query</summary>
+Metin teriminin tamamini iceren belgeleri dondurmek icin kullanilir.
+</details>
+
+<details>
+<summary>Fuzzy Query</summary>
+Benzer ancak kesin olmayan terimleri aramak icin kullanilir.
+</details>
+
+<details>
+<summary>Wildcard Query</summary>
+Jokert karakterler (* veya ?) kullanarak eslesen terimleri bulmak icin kullanilir.
+</details>
+
+<details>
+<summary>Prefix Query</summary>
+Belirli bir on ek ile baslayan terimleri aramak icin kullanilir.
+</details>
+
+<details>
+<summary>Autocomplete Suggester</summary>
+Otomatik tamamlama islevselligi icin kullanilir ve kullanicinin yazmaya basladigi terimleri tamamlamak icin kullanilir.
+</details>
+
+<details>
+<summary>Highlighting</summary>
+Eslesen terimleri veya metni vurgulamak icin kullanilir.
+</details>
+
+<details>
+<summary>Aggregations</summary>
+Verileri toplamak, gruplamak ve analiz etmek icin kullanilir.
+</details>
+
+<details>
+<summary>Ranking Functions</summary>
+Elasticsearch'in belgeleri siralamak icin kullanabileceginiz cesitli siralama islevleri vardir.
+</details>
 
 ## Elasticsearch'u Kimler Kullaniyor?
 
