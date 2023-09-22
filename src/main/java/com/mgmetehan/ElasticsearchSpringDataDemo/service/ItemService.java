@@ -4,6 +4,7 @@ import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import com.mgmetehan.ElasticsearchSpringDataDemo.dto.SearchRequestDto;
 import com.mgmetehan.ElasticsearchSpringDataDemo.model.Item;
 import com.mgmetehan.ElasticsearchSpringDataDemo.repository.ItemRepository;
 import com.mgmetehan.ElasticsearchSpringDataDemo.util.ESUtil;
@@ -71,21 +72,33 @@ public class ItemService {
         }
     }
 
-    public SearchResponse<Item> searchName(String fieldValue) {
+    public List<Item> searchItemsByFieldAndValue(SearchRequestDto searchRequestDto) {
+        SearchResponse<Item> searchResponse = null;
         try {
-            Supplier<Query> supplier = ESUtil.supplierWithNameField(fieldValue);
-            SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
-            log.info("elasticsearch query is " + supplier.get().toString());
-            return searchResponse;
+            Supplier<Query> querySupplier = ESUtil.buildQueryForFieldAndValue(searchRequestDto.getFieldName(),
+                    searchRequestDto.getSearchValue());//sorgu olustur
+
+            searchResponse = elasticsearchClient.search(s -> s.index("items_index")
+                    .query(querySupplier.get()), Item.class);//sorguyu calistir ve cevabi alir
+
+            log.info("Elasticsearch sorgusu: {}", querySupplier.get());
         } catch (IOException e) {
-            log.error("Error while getting all items", e);
             throw new RuntimeException(e);
         }
+        return extractItemsFromResponse(searchResponse);
     }
 
-    public List<Item> searchItemsWithQuery(String name, String brand) {
+    private List<Item> extractItemsFromResponse(SearchResponse<Item> searchResponse) {
+        return searchResponse.hits()
+                .hits()
+                .stream()
+                .map(Hit::source)
+                .collect(Collectors.toList());
+    }
+
+    public List<Item> searchItemsByNameAndBrand(String name, String brand) {
         try {
-            return itemRepository.searchNameAndBrand(name, brand);
+            return itemRepository.searchByNameAndBrand(name, brand);
         } catch (Exception e) {
             return Collections.emptyList();
         }
@@ -100,16 +113,13 @@ public class ItemService {
 
     public SearchResponse<Item> autoSuggestItem(String name) throws IOException {
         Supplier<Query> supplier = ESUtil.createSupplierAutoSuggest(name);
-        SearchResponse<Item> searchResponse = elasticsearchClient
-                .search(s -> s.index("items_index").query(supplier.get()), Item.class);
+        SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
         log.info(" elasticsearch auto suggestion query" + supplier.get().toString());
         return searchResponse;
     }
 
     public List<String> autoSuggestItemWithQuery(String name) {
         List<Item> items = itemRepository.customAutocompleteSearch(name);
-        return items.stream()
-                .map(Item::getName)
-                .collect(Collectors.toList());
+        return items.stream().map(Item::getName).collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package com.mgmetehan.ElasticsearchSpringDataDemo.controller;
 
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import com.mgmetehan.ElasticsearchSpringDataDemo.dto.SearchRequestDto;
 import com.mgmetehan.ElasticsearchSpringDataDemo.model.Item;
 import com.mgmetehan.ElasticsearchSpringDataDemo.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,6 @@ public class ItemController {
     @GetMapping("/findAll")
     public Iterable<Item> findAll() {
         return itemService.getItems();
-
     }
 
     //Tum indexleri getir
@@ -59,23 +59,19 @@ public class ItemController {
         return itemService.matchAllItemsServices();
     }
 
-    @GetMapping("/search/{fieldValue}")
-    public List<Item> matchAllItemsWithName(@PathVariable String fieldValue) throws IOException {
-        SearchResponse<Item> searchResponse = itemService.searchName(fieldValue);
-        log.info(searchResponse.hits().hits().toString());
-
-        List<Hit<Item>> listOfHits = searchResponse.hits().hits();
-        List<Item> listOfItems = new ArrayList<>();
-        for (Hit<Item> hit : listOfHits) {
-            listOfItems.add(hit.source());
-        }
-        return listOfItems;
+    @GetMapping("/search")
+    public List<Item> searchItemsByFieldAndValue(@RequestBody SearchRequestDto searchRequestDto) {
+        List<Item> foundItems = itemService.searchItemsByFieldAndValue(searchRequestDto);
+        log.info("Elasticsearch arama sonuçları: {}", foundItems);
+        return foundItems;
     }
 
     @GetMapping("/search/{name}/{brand}")
-    public List<Item> searchItemsWithQuery(@PathVariable String name, @PathVariable String brand) {
+    public List<Item> searchItemsByNameAndBrandWithQuery(@PathVariable String name, @PathVariable String brand) {
         try {
-            return itemService.searchItemsWithQuery(name, brand);
+            List<Item> foundItems = itemService.searchItemsByNameAndBrand(name, brand);
+            log.info("Elasticsearch arama sonuclari: {}", foundItems);
+            return foundItems;
         } catch (Exception e) {
             return Collections.emptyList();
         }

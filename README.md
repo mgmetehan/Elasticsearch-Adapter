@@ -106,10 +106,10 @@ Elasticsearch, buyuk miktardaki verileri duzenli bir sekilde saklayabilen, hizli
 `7. Finansal Veri Analizi`<br>
 
 ## Elasticsearch Temel Kavramlari Neler?
-index = database<br>
-field = column<br>
-document = row<br>
-type = table<br>
+`index = database`<br>
+`field = column`<br>
+`document = row`<br>
+`type = table`<br>
 
 <details>
 <summary>Index</summary>
@@ -285,7 +285,7 @@ Elasticsearch'in belgeleri siralamak icin kullanabileceginiz cesitli siralama is
 ## Elasticsearch'u Kimler Kullaniyor?
 
 <p align="center">
-    <img src="png/companies.png" alt="companies" width="%100" height="600" style="border-radius: 20px">
+    <img src="png/companies.png" alt="companies" width="%100" height="%50" style="border-radius: 20px">
 </p>
 
 ## Elasticsearch'u Docker Uzerinde Calistirma
