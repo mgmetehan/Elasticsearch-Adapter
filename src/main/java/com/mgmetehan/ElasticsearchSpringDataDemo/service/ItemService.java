@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -88,7 +89,7 @@ public class ItemService {
         return extractItemsFromResponse(searchResponse);
     }
 
-    private List<Item> extractItemsFromResponse(SearchResponse<Item> searchResponse) {
+    public List<Item> extractItemsFromResponse(SearchResponse<Item> searchResponse) {
         return searchResponse.hits()
                 .hits()
                 .stream()
@@ -116,6 +117,23 @@ public class ItemService {
         SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
         log.info(" elasticsearch auto suggestion query" + supplier.get().toString());
         return searchResponse;
+    }
+
+    public Set<String> findSuggestedItemNames(String itemName) {
+        Query autoSuggestQuery = ESUtil.buildAutoSuggestQuery(itemName);
+        log.info("Elasticsearch auto-suggestion query: {}", autoSuggestQuery.toString());
+
+        try {
+            return elasticsearchClient.search(s -> s.index("items_index").query(autoSuggestQuery), Item.class)
+                    .hits()
+                    .hits()
+                    .stream()
+                    .map(Hit::source)
+                    .map(Item::getName)
+                    .collect(Collectors.toSet());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<String> autoSuggestItemWithQuery(String name) {

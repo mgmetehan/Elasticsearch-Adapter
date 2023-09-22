@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/v1/items")
@@ -92,21 +93,12 @@ public class ItemController {
     }
 
     @GetMapping("/autoSuggest/{name}")
-    public HashSet<String> autoSuggestItemSearch(@PathVariable String name) {
+    public Set<String> autoSuggestItemsByName(@PathVariable String name) {
         try {
-            SearchResponse<Item> searchResponse = itemService.autoSuggestItem(name);
-            List<Hit<Item>> hitList = searchResponse.hits().hits();
-            List<Item> ItemList = new ArrayList<>();
-            for (Hit<Item> hit : hitList) {
-                ItemList.add(hit.source());
-            }
-            HashSet<String> listOfItemNames = new HashSet<>();
-            for (Item Item : ItemList) {
-                listOfItemNames.add(Item.getName());
-            }
-            return listOfItemNames;
+            return itemService.findSuggestedItemNames(name);
         } catch (Exception e) {
-            return new HashSet<>();
+            log.error("Error in suggestItemsByName", e);
+            return Collections.emptySet();
         }
     }
 
