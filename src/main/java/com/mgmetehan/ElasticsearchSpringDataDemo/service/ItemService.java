@@ -46,12 +46,26 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public String matchAllServices() throws IOException {
-        Supplier<Query> supplier = ESUtil.supplier();
-        SearchResponse<Map> searchResponse = elasticsearchClient.search(s -> s.query(supplier.get()), Map.class);
-        log.info("elasticsearch query is " + supplier.get().toString());
-        log.info("elasticsearch response is " + searchResponse.toString());
+    public String getAllItemsFromAllIndexes() {
+        Query query = ESUtil.createMatchAllQuery();
+        SearchResponse<Map> searchResponse = null;
+        try {
+            searchResponse = elasticsearchClient.search(s -> s.query(query), Map.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        log.info("Elasticsearch sorgusu: {}", query.toString());
+        log.info("Elasticsearch cevabi: {}", searchResponse.toString());
+
         return searchResponse.hits().hits().toString();
+        /*
+        List<String> hits = searchResponse.hits().hits()
+                .stream()
+                .map(hit -> hit.source().toString())
+                .collect(Collectors.toList());
+
+        return String.join("\n", hits);
+        */
     }
 
     public List<Item> matchAllItemsServices() {
@@ -90,11 +104,7 @@ public class ItemService {
     }
 
     public List<Item> extractItemsFromResponse(SearchResponse<Item> searchResponse) {
-        return searchResponse.hits()
-                .hits()
-                .stream()
-                .map(Hit::source)
-                .collect(Collectors.toList());
+        return searchResponse.hits().hits().stream().map(Hit::source).collect(Collectors.toList());
     }
 
     public List<Item> searchItemsByNameAndBrand(String name, String brand) {
@@ -136,7 +146,7 @@ public class ItemService {
         }
     }
 
-    public List<String> autoSuggestItemWithQuery(String name) {
+    public List<String> autoSuggestItemsByNameWithQuery(String name) {
         List<Item> items = itemRepository.customAutocompleteSearch(name);
         return items.stream().map(Item::getName).collect(Collectors.toList());
     }

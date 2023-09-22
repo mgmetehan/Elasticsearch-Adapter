@@ -13,6 +13,11 @@ import java.util.function.Supplier;
 
 @UtilityClass
 public class ESUtil {
+
+    public static Query createMatchAllQuery() {
+        return Query.of(q -> q.matchAll(new MatchAllQuery.Builder().build()));
+    }
+
     public static Supplier<Query> supplier() {
         Supplier<Query> supplier = () -> Query.of(q -> q.matchAll(matchAllQuery()));
         return supplier;

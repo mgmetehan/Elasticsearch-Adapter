@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -44,14 +43,9 @@ public class ItemController {
     }
 
     //Tum indexleri getir
-    @GetMapping("/matchAll")
-    public String matchAll() {
-        try {
-            return itemService.matchAllServices();
-        } catch (IOException e) {
-            log.error("Error while getting all items", e);
-            throw new RuntimeException(e);
-        }
+    @GetMapping("/allIndexes")
+    public String getAllItemsFromAllIndexes() {
+        return itemService.getAllItemsFromAllIndexes();
     }
 
     // Belirtigimiz indexleri getir
@@ -94,16 +88,11 @@ public class ItemController {
 
     @GetMapping("/autoSuggest/{name}")
     public Set<String> autoSuggestItemsByName(@PathVariable String name) {
-        try {
-            return itemService.findSuggestedItemNames(name);
-        } catch (Exception e) {
-            log.error("Error in suggestItemsByName", e);
-            return Collections.emptySet();
-        }
+        return itemService.findSuggestedItemNames(name);
     }
 
     @GetMapping("/suggestions/{name}")
-    public List<String> autoSuggestItemSearchWithQuery(@PathVariable String name) {
-        return itemService.autoSuggestItemWithQuery(name);
+    public List<String> autoSuggestItemsByNameWithQuery(@PathVariable String name) {
+        return itemService.autoSuggestItemsByNameWithQuery(name);
     }
 }
