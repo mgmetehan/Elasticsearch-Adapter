@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "e86e6cf3-a194-4c15-81e8-8bc6d8d3616e",
+		"name": "ElasticSearch-Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19779795"
+	},
+	"item": [
+		{
+			"name": "findAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/findAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"findAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "init-index",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/init-index",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"init-index"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createIndex",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"99\",\n    \"name\": \"test\",\n    \"price\": 1,\n    \"brand\": \"test\",\n    \"category\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchItemsByFieldAndValue",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fieldName\": [\n        \"name\"\n    ],\n    \"searchValue\": [\n        \"Ultimate\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchItemsByNameAndBrandWithQuery",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/search/Ultimate/ABC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"search",
+						"Ultimate",
+						"ABC"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autoSuggestItemsByName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/autoSuggest/pr",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"autoSuggest",
+						"pr"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllItemsFromAllIndexes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/allIndexes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"allIndexes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllDataFromIndex",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/getAllDataFromIndex/items_index",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"getAllDataFromIndex",
+						"items_index"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "boolQuery",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fieldName\": [\n        \"name\",\n        \"brand\"\n    ],\n    \"searchValue\": [\n        \"mega\",\n        \"xyz\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/boolQuery",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"boolQuery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autoSuggestItemSearchWithQuery",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/items/suggestionsQuery/pr",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"items",
+						"suggestionsQuery",
+						"pr"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
