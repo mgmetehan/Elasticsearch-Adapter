@@ -58,13 +58,13 @@ public class ItemService {
         return extractItemsFromResponse(response);
     }
 
-    public List<Item> getAllDataFromIndex() {
+    public List<Item> getAllDataFromIndex(String indexName) {
         try {
             var supplier = ESUtil.createMatchAllQuery();
             log.info("Elasticsearch query {}", supplier.toString());
 
             SearchResponse<Item> response = elasticsearchClient.search(
-                    q -> q.index("items_index").query(supplier), Item.class);
+                    q -> q.index(indexName).query(supplier), Item.class);
 
             log.info("Elasticsearch response {}", response.toString());
 

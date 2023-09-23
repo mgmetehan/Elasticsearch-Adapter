@@ -9,10 +9,12 @@
 - [Elasticsearch vs SQL](#elasticsearch-vs-sql)
 - [Elasticsearch Sorgu Tipleri](#elasticsearch-sorgu-tipleri)
 - [Elasticsearch'u Kimler Kullaniyor?](#elasticsearchu-kimler-kullaniyor)
+- [Endpoints ve Aciklamalari](#endpoints-ve-aciklamalari)
 - [Elasticsearch'u Docker Uzerinde Calistirma](#elasticsearchu-docker-uzerinde-calistirma)
 - [Tech Stack](#tech-stack)
 - [Requirements](#requirements)
 - [Build & Run](#build--run)
+- [Kaynakca](#kaynakca)
 
 ## Elasticsearch Nedir?
 Elasticsearch, veri arama, analiz ve gorsellestirme islemlerini hizli ve etkili bir sekilde gerceklestirmenizi saglayan bir acik kaynakli veri arama ve analiz platformudur. 
@@ -288,6 +290,130 @@ Elasticsearch'in belgeleri siralamak icin kullanabileceginiz cesitli siralama is
     <img src="png/companies.png" alt="companies" width="%100" height="%50" style="border-radius: 20px">
 </p>
 
+## Endpoints ve Aciklamalari
+<table style="width:100%">
+  <tr>
+      <th>Method</th>
+      <th>Method Name</th>
+      <th>Url</th>
+      <th>Description</th>
+      <th>Request Body</th>
+  </tr>
+  <tr>
+      <td>POST</td>
+      <td>createIndex</td>
+      <td>/api/v1/items</td>
+      <td>Elasticsearch veritabanina veri eklemeyi saglar.</td>
+      <td>Item<br>
+      {
+        "id": "99",
+        "name": "test",
+        "price": 1,
+        "brand": "test",
+        "category": "test"
+      }</td>
+  <tr>
+  <tr>
+      <td>POST</td>
+      <td>addItemsFromJson</td>
+      <td>/api/v1/items/init-index</td>
+      <td>JSON'daki verileri alip Elasticsearch veritabanina kayit eder.</td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>findAll</td>
+      <td>/api/v1/items/findAll</td>
+      <td>Elasticsearch veritabanina kaydedilmis tum verileri getirir.</td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>getAllItemsFromAllIndexes</td>
+      <td>/api/v1/items/allIndexes</td>
+      <td>Elasticsearch veritabani icindeki tum indekslerdeki verileri getirir.</td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>getAllDataFromIndex</td>
+      <td>/api/v1/items/getAllDataFromIndex/{indexName}</td>
+      <td>Elasticsearch veritabani icindeki istenilen indekslerdeki verileri getirir.</td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>searchItemsByFieldAndValue</td>
+      <td>/api/v1/items/search</td>
+      <td>Elasticsearch veritabaninda istenilen alanda istenilen veriyi arar.</td>
+      <td>SearchRequestDto<br>
+      {
+        "fieldName": [
+            "name"
+        ],
+        "searchValue": [
+            "Ultimate"
+        ]
+      }
+      </td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>searchItemsByNameAndBrandWithQuery</td>
+      <td>/api/v1/items/search/{name}/{brand}</td>
+      <td>Elasticsearch veritabaninda isme ve markaya gore arama yapar.</td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>boolQuery</td>
+      <td>/api/v1/items/boolQuery</td>
+      <td>Elasticsearch veritabaninda istenilen alanda istenilen veriyi bool query olarak arar.</td>
+      <td>SearchRequestDto<br>
+      {
+        "fieldName": [
+            "name",
+            "brand"
+        ],
+        "searchValue": [
+            "mega",
+            "xyz"
+        ]
+      }
+      </td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>autoSuggestItemsByName</td>
+      <td>/api/v1/items/autoSuggest/{name}</td>
+      <td>Bir urun adi alir ve Elasticsearch veritabaninda bu ada benzer urun adlarini bulup dondurur.</td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>autoSuggestItemsByNameWithQuery</td>
+      <td>/api/v1/items/suggestionsQuery/{name}</td>
+      <td>Bir urun adi alir ve Elasticsearch veritabaninda bu ada benzer urun adlarini bulup dondurur.</td>
+      <td></td>
+  <tr>
+</table>
+
+### searchItemsByNameAndBrandWithQuery'nin custom query'sinin aciklamasi:
+```java
+@Query("{\"bool\": {\"must\": [{\"match\": {\"name\": \"?0\"}}, {\"match\": {\"brand\": \"?1\"}}]}}")
+List<Item> searchItemsByNameAndBrandWithQuery(String name, String brand);
+```
+- **bool:** Bu, Elasticsearch sorgusunun bir "bool" (boolean) sorgusu oldugunu belirtir. Bool sorgusu, baska sorgulari bir araya getirme ve mantiksal islemler yapma yetenegi saglar.
+
+- **must:** Bool sorgusunun icinde yer alan "must" bolumu, bu sorgunun icermesi gereken kosullari belirtir. Yani, bu sorgu, hem adi hem de markayi icermesi gereken belgeleri arar.
+
+- **match:** Bu, bir alanin (field) icerigini belirtilen bir degerle eslestirmek icin kullanilan sorgu turunu belirtir.
+
+- **name ve brand:** Bu, her bir "match" sorgusunun eslesecegi alanlarin adini belirtir. Yani, "name" alani belirtilen name degeri ile eslesmeli ve "brand" alani belirtilen brand degeri ile eslesmelidir.
+
+- **"?0" ve "?1":** Bu, "match" sorgularinin eslesecegi degerleri temsil eder. ?0 ve ?1 ifadeleri, bu sorgunun metodun parametrelerine sirasiyla name ve brand degerlerini alacagini gosterir. Yani, bu parametreler ile belirtilen degerlerle eslesmeyi arar.
+
+
 ## Elasticsearch'u Docker Uzerinde Calistirma
 Elasticsearh'u docker uzerinden calistirmak icin docker-compose.yml dosyasini kullanabilirsiniz.
 Bu dosyayi kullanarak Elasticsearch 8.8.0 surumunu calistirabilirsiniz.
@@ -344,3 +470,18 @@ For building and running the application you need:
 ```
   mvn clean install && mvn --projects backend spring-boot:run
 ```
+
+## Kaynakca:
+- https://www.youtube.com/playlist?list=PLoNChWlyFPxcB-jY277teAoJXtNNCcifM
+- https://www.elastic.co/
+- https://aws.amazon.com/what-is/elasticsearch/
+- https://www.borakasmer.com/elasticsearch-nedir/
+- https://www.gencayyildiz.com/blog/elasticsearch-nedir-temel-kavramlari-nelerdir/
+- https://www.mdpi.com/2076-3417/11/24/11590
+- https://medium.com/@kdrcandogan/elasticsearch-nedir-45d237c29b26
+- https://www.gtech.com.tr/elasticsearch-esnek-arama-nedir/
+- https://www.hosting.com.tr/blog/elasticsearch/
+- https://miuul.com/not-defteri/elasticsearch-nedir-neden-kullanilmalidir
+- https://www.alastyr.com/blog/elasticsearch-nedir-ne-ise-yarar/
+- https://sematext.com/guides/elasticsearch/
+- https://webo.digital/blog/what-is-elasticsearch-why-use-it/

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/v1/items")
+@RequestMapping("/api/v1/items")
 @RequiredArgsConstructor
 @Slf4j
 public class ItemController {
@@ -42,9 +42,9 @@ public class ItemController {
         return itemService.getAllItemsFromAllIndexes();
     }
 
-    @GetMapping("/getAllDataFromIndex")
-    public List<Item> getAllDataFromIndex() {
-        return itemService.getAllDataFromIndex();
+    @GetMapping("/getAllDataFromIndex/{indexName}")
+    public List<Item> getAllDataFromIndex(@PathVariable String indexName) {
+        return itemService.getAllDataFromIndex(indexName);
     }
 
     @GetMapping("/search")
@@ -67,7 +67,7 @@ public class ItemController {
         return itemService.findSuggestedItemNames(name);
     }
 
-    @GetMapping("/suggestions/{name}")
+    @GetMapping("/suggestionsQuery/{name}")
     public List<String> autoSuggestItemsByNameWithQuery(@PathVariable String name) {
         return itemService.autoSuggestItemsByNameWithQuery(name);
     }
