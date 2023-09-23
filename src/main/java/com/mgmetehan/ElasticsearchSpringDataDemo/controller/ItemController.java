@@ -42,16 +42,14 @@ public class ItemController {
         return itemService.getItems();
     }
 
-    //Tum indexleri getir
     @GetMapping("/allIndexes")
-    public String getAllItemsFromAllIndexes() {
+    public List<Item> getAllItemsFromAllIndexes() {
         return itemService.getAllItemsFromAllIndexes();
     }
 
-    // Belirtigimiz indexleri getir
-    @GetMapping("/matchAllItems")
-    public List<Item> matchAllItems() {
-        return itemService.matchAllItemsServices();
+    @GetMapping("/getAllDataFromIndex")
+    public List<Item> getAllDataFromIndex() {
+        return itemService.getAllDataFromIndex();
     }
 
     @GetMapping("/search")
@@ -72,7 +70,7 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/boolQuery/{name}/{brand}")
+    @GetMapping("/boolQuery/{name}/{brand}")//SearchREquestDto kullan get(0) name,value , get(1) name,value
     public List<Item> boolQuery(@PathVariable String name, @PathVariable String brand) throws IOException {
 
         SearchResponse<Item> searchResponse = itemService.boolQuery(name, brand);

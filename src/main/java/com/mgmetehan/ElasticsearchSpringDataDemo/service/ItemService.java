@@ -13,10 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -46,46 +44,36 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public String getAllItemsFromAllIndexes() {
+    public List<Item> getAllItemsFromAllIndexes() {
         Query query = ESUtil.createMatchAllQuery();
-        SearchResponse<Map> searchResponse = null;
+        SearchResponse<Item> searchResponse = null;
         try {
-            searchResponse = elasticsearchClient.search(s -> s.query(query), Map.class);
+            searchResponse = elasticsearchClient.search(s -> s.query(query), Item.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         log.info("Elasticsearch sorgusu: {}", query.toString());
         log.info("Elasticsearch cevabi: {}", searchResponse.toString());
 
-        return searchResponse.hits().hits().toString();
-        /*
-        List<String> hits = searchResponse.hits().hits()
-                .stream()
-                .map(hit -> hit.source().toString())
-                .collect(Collectors.toList());
-
-        return String.join("\n", hits);
-        */
+        return extractItemsFromResponse(searchResponse);
     }
 
-    public List<Item> matchAllItemsServices() {
+    public List<Item> getAllDataFromIndex() {
         try {
-            Supplier<Query> supplier = ESUtil.supplier();
-            SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
-            log.info("elasticsearch query is " + supplier.get().toString());
+            var supplier = ESUtil.createMatchAllQuery();
+            SearchResponse<Item> searchResponse = elasticsearchClient.search(
+                    s -> s.index("items_index").query(supplier), Item.class);
 
-            log.info("elasticsearch response is " + searchResponse.toString());
-            List<Hit<Item>> listOfHits = searchResponse.hits().hits();
-            List<Item> listOfItems = new ArrayList<>();
-            for (Hit<Item> hit : listOfHits) {
-                listOfItems.add(hit.source());
-            }
-            return listOfItems;
+            log.info("Elasticsearch query is {}", supplier.toString());
+            log.info("Elasticsearch response is {}", searchResponse.toString());
+
+            return extractItemsFromResponse(searchResponse);
         } catch (IOException e) {
             log.error("Error while getting all items", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to retrieve items", e);
         }
     }
+
 
     public List<Item> searchItemsByFieldAndValue(SearchRequestDto searchRequestDto) {
         SearchResponse<Item> searchResponse = null;
@@ -104,7 +92,12 @@ public class ItemService {
     }
 
     public List<Item> extractItemsFromResponse(SearchResponse<Item> searchResponse) {
-        return searchResponse.hits().hits().stream().map(Hit::source).collect(Collectors.toList());
+        return searchResponse
+                .hits()
+                .hits()
+                .stream()
+                .map(Hit::source)
+                .collect(Collectors.toList());
     }
 
     public List<Item> searchItemsByNameAndBrand(String name, String brand) {
@@ -119,13 +112,6 @@ public class ItemService {
         Supplier<Query> supplier = ESUtil.supplierQueryForBoolQuery(name, brand);
         SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
         log.info("elasticsearch query is " + supplier.get().toString());
-        return searchResponse;
-    }
-
-    public SearchResponse<Item> autoSuggestItem(String name) throws IOException {
-        Supplier<Query> supplier = ESUtil.createSupplierAutoSuggest(name);
-        SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
-        log.info(" elasticsearch auto suggestion query" + supplier.get().toString());
         return searchResponse;
     }
 

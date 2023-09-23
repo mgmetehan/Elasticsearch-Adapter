@@ -18,16 +18,6 @@ public class ESUtil {
         return Query.of(q -> q.matchAll(new MatchAllQuery.Builder().build()));
     }
 
-    public static Supplier<Query> supplier() {
-        Supplier<Query> supplier = () -> Query.of(q -> q.matchAll(matchAllQuery()));
-        return supplier;
-    }
-
-    public static MatchAllQuery matchAllQuery() {
-        var matchAllQuery = new MatchAllQuery.Builder();
-        return matchAllQuery.build();
-    }
-
     public static Supplier<Query> buildQueryForFieldAndValue(String fieldName, String searchValue) {
         return () -> Query.of(q -> q.match(buildMatchQueryForFieldAndValue(fieldName, searchValue)));
     }
@@ -70,18 +60,14 @@ public class ESUtil {
 
     public static MatchQuery createAutoSuggestMatchQuery(String name) {
         var autoSuggestQuery = new MatchQuery.Builder();
-        return autoSuggestQuery.field("name").query(name).analyzer("standard").build();
-    }
-
-    public Query buildAutoSuggestQuery(String name) {
-        return Query.of(q -> q.match(createAutoSuggestMatchQuery(name)));
-    }
-
-    public MatchQuery buildAutoSuggestMatchQuery(String name) {
-        return new MatchQuery.Builder()
+        return autoSuggestQuery
                 .field("name")
                 .query(name)
                 .analyzer("custom_index")
                 .build();
+    }
+
+    public static Query buildAutoSuggestQuery(String name) {
+        return Query.of(q -> q.match(createAutoSuggestMatchQuery(name)));
     }
 }
