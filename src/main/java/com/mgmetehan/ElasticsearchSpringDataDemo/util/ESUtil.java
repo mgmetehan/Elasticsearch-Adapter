@@ -5,10 +5,9 @@ import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import com.mgmetehan.ElasticsearchSpringDataDemo.dto.SearchRequestDto;
 import lombok.experimental.UtilityClass;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 @UtilityClass
@@ -26,41 +25,28 @@ public class ESUtil {
         return new MatchQuery.Builder().field(fieldName).query(searchValue).build();
     }
 
-    public static Supplier<Query> supplierQueryForBoolQuery(String name, String brand) {
-        Supplier<Query> supplier = () -> Query.of(q -> q.bool(boolQuery(name, brand)));
-        return supplier;
+    public static Supplier<Query> createBoolQuery(SearchRequestDto dto) {
+        return () -> Query.of(q -> q.bool(boolQuery(dto.getFieldName().get(0).toString(), dto.getSearchValue().get(0),
+                dto.getFieldName().get(1).toString(), dto.getSearchValue().get(1))));
     }
 
-    public static BoolQuery boolQuery(String name, String brand) {
-
-        var boolQuery = new BoolQuery.Builder();
-        return boolQuery.filter(termQuery("name", name)).must(termQuery("brand", brand)).build();
+    public static BoolQuery boolQuery(String key1, String value1, String key2, String value2) {
+        return new BoolQuery.Builder()
+                .filter(termQuery(key1.toString(), value1))
+                .must(termQuery(key2.toString(), value2))
+                .build();
     }
 
-    //termQuery kesin eslesme icin kullanilir
-    public static List<Query> termQuery(String field, String value) {
-        final List<Query> terms = new ArrayList<>();
-        var termQuery = new TermQuery.Builder();
-        terms.add(Query.of(q -> q.term(termQuery.field(field).value(value).build())));
-        return terms;
+    public static Query termQuery(String field, String value) {
+        return Query.of(q -> q.term(new TermQuery.Builder().field(field).value(value).build()));
     }
 
-    //matchQuery daha esnek bir arama secenegi sunar ve belge iceriginde benzer terimleri bulabilir
-    public static List<Query> matchQuery(String field, String value) {
-        final List<Query> matches = new ArrayList<>();
-        var matchQuery = new MatchQuery.Builder();
-        matches.add(Query.of(q -> q.match(matchQuery.field(field).query(value).build())));
-        return matches;
-    }
-
-    public static Supplier<Query> createSupplierAutoSuggest(String name) {
-        Supplier<Query> supplier = () -> Query.of(q -> q.match(createAutoSuggestMatchQuery(name)));
-        return supplier;
+    public static Query matchQuery(String field, String value) {
+        return Query.of(q -> q.match(new MatchQuery.Builder().field(field).query(value).build()));
     }
 
     public static MatchQuery createAutoSuggestMatchQuery(String name) {
-        var autoSuggestQuery = new MatchQuery.Builder();
-        return autoSuggestQuery
+        return new MatchQuery.Builder()
                 .field("name")
                 .query(name)
                 .analyzer("custom_index")

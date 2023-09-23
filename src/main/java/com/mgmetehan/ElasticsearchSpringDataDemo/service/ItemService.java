@@ -46,58 +46,50 @@ public class ItemService {
 
     public List<Item> getAllItemsFromAllIndexes() {
         Query query = ESUtil.createMatchAllQuery();
-        SearchResponse<Item> searchResponse = null;
+        log.info("Elasticsearch query: {}", query.toString());
+        SearchResponse<Item> response = null;
         try {
-            searchResponse = elasticsearchClient.search(s -> s.query(query), Item.class);
+            response = elasticsearchClient.search(q -> q.query(query), Item.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        log.info("Elasticsearch sorgusu: {}", query.toString());
-        log.info("Elasticsearch cevabi: {}", searchResponse.toString());
+        log.info("Elasticsearch response: {}", response.toString());
 
-        return extractItemsFromResponse(searchResponse);
+        return extractItemsFromResponse(response);
     }
 
     public List<Item> getAllDataFromIndex() {
         try {
             var supplier = ESUtil.createMatchAllQuery();
-            SearchResponse<Item> searchResponse = elasticsearchClient.search(
-                    s -> s.index("items_index").query(supplier), Item.class);
+            log.info("Elasticsearch query {}", supplier.toString());
 
-            log.info("Elasticsearch query is {}", supplier.toString());
-            log.info("Elasticsearch response is {}", searchResponse.toString());
+            SearchResponse<Item> response = elasticsearchClient.search(
+                    q -> q.index("items_index").query(supplier), Item.class);
 
-            return extractItemsFromResponse(searchResponse);
-        } catch (IOException e) {
-            log.error("Error while getting all items", e);
-            throw new RuntimeException("Failed to retrieve items", e);
-        }
-    }
+            log.info("Elasticsearch response {}", response.toString());
 
-
-    public List<Item> searchItemsByFieldAndValue(SearchRequestDto searchRequestDto) {
-        SearchResponse<Item> searchResponse = null;
-        try {
-            Supplier<Query> querySupplier = ESUtil.buildQueryForFieldAndValue(searchRequestDto.getFieldName(),
-                    searchRequestDto.getSearchValue());//sorgu olustur
-
-            searchResponse = elasticsearchClient.search(s -> s.index("items_index")
-                    .query(querySupplier.get()), Item.class);//sorguyu calistir ve cevabi alir
-
-            log.info("Elasticsearch sorgusu: {}", querySupplier.get());
+            return extractItemsFromResponse(response);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return extractItemsFromResponse(searchResponse);
     }
 
-    public List<Item> extractItemsFromResponse(SearchResponse<Item> searchResponse) {
-        return searchResponse
-                .hits()
-                .hits()
-                .stream()
-                .map(Hit::source)
-                .collect(Collectors.toList());
+    public List<Item> searchItemsByFieldAndValue(SearchRequestDto searchRequestDto) {
+        SearchResponse<Item> response = null;
+        try {
+            Supplier<Query> querySupplier = ESUtil.buildQueryForFieldAndValue(searchRequestDto.getFieldName().get(0),
+                    searchRequestDto.getSearchValue().get(0));//sorgu olustur
+
+            log.info("Elasticsearch query {}", querySupplier.toString());
+
+            response = elasticsearchClient.search(q -> q.index("items_index")
+                    .query(querySupplier.get()), Item.class);//sorguyu calistir ve cevabi alir
+
+            log.info("Elasticsearch response: {}", response.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return extractItemsFromResponse(response);
     }
 
     public List<Item> searchItemsByNameAndBrand(String name, String brand) {
@@ -108,19 +100,27 @@ public class ItemService {
         }
     }
 
-    public SearchResponse<Item> boolQuery(String name, String brand) throws IOException {
-        Supplier<Query> supplier = ESUtil.supplierQueryForBoolQuery(name, brand);
-        SearchResponse<Item> searchResponse = elasticsearchClient.search(s -> s.index("items_index").query(supplier.get()), Item.class);
-        log.info("elasticsearch query is " + supplier.get().toString());
-        return searchResponse;
+    public List<Item> boolQueryFieldAndValue(SearchRequestDto searchRequestDto) {
+        try {
+            var supplier = ESUtil.createBoolQuery(searchRequestDto);
+            log.info("Elasticsearch query: " + supplier.get().toString());
+
+            SearchResponse<Item> response = elasticsearchClient.search(q ->
+                    q.index("items_index").query(supplier.get()), Item.class);
+            log.info("Elasticsearch response: {}", response.toString());
+
+            return extractItemsFromResponse(response);
+        } catch (IOException e) {
+            return Collections.emptyList();
+        }
     }
 
     public Set<String> findSuggestedItemNames(String itemName) {
         Query autoSuggestQuery = ESUtil.buildAutoSuggestQuery(itemName);
-        log.info("Elasticsearch auto-suggestion query: {}", autoSuggestQuery.toString());
+        log.info("Elasticsearch query: {}", autoSuggestQuery.toString());
 
         try {
-            return elasticsearchClient.search(s -> s.index("items_index").query(autoSuggestQuery), Item.class)
+            return elasticsearchClient.search(q -> q.index("items_index").query(autoSuggestQuery), Item.class)
                     .hits()
                     .hits()
                     .stream()
@@ -134,6 +134,19 @@ public class ItemService {
 
     public List<String> autoSuggestItemsByNameWithQuery(String name) {
         List<Item> items = itemRepository.customAutocompleteSearch(name);
-        return items.stream().map(Item::getName).collect(Collectors.toList());
+        log.info("Elasticsearch response: {}", items.toString());
+        return items
+                .stream()
+                .map(Item::getName)
+                .collect(Collectors.toList());
+    }
+
+    public List<Item> extractItemsFromResponse(SearchResponse<Item> response) {
+        return response
+                .hits()
+                .hits()
+                .stream()
+                .map(Hit::source)
+                .collect(Collectors.toList());
     }
 }

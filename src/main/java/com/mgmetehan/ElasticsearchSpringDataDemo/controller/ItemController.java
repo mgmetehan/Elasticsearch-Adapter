@@ -1,7 +1,5 @@
 package com.mgmetehan.ElasticsearchSpringDataDemo.controller;
 
-import co.elastic.clients.elasticsearch.core.SearchResponse;
-import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.mgmetehan.ElasticsearchSpringDataDemo.dto.SearchRequestDto;
 import com.mgmetehan.ElasticsearchSpringDataDemo.model.Item;
 import com.mgmetehan.ElasticsearchSpringDataDemo.service.ItemService;
@@ -14,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -54,34 +49,17 @@ public class ItemController {
 
     @GetMapping("/search")
     public List<Item> searchItemsByFieldAndValue(@RequestBody SearchRequestDto searchRequestDto) {
-        List<Item> foundItems = itemService.searchItemsByFieldAndValue(searchRequestDto);
-        log.info("Elasticsearch arama sonuçları: {}", foundItems);
-        return foundItems;
+        return itemService.searchItemsByFieldAndValue(searchRequestDto);
     }
 
     @GetMapping("/search/{name}/{brand}")
     public List<Item> searchItemsByNameAndBrandWithQuery(@PathVariable String name, @PathVariable String brand) {
-        try {
-            List<Item> foundItems = itemService.searchItemsByNameAndBrand(name, brand);
-            log.info("Elasticsearch arama sonuclari: {}", foundItems);
-            return foundItems;
-        } catch (Exception e) {
-            return Collections.emptyList();
-        }
+        return itemService.searchItemsByNameAndBrand(name, brand);
     }
 
-    @GetMapping("/boolQuery/{name}/{brand}")//SearchREquestDto kullan get(0) name,value , get(1) name,value
-    public List<Item> boolQuery(@PathVariable String name, @PathVariable String brand) throws IOException {
-
-        SearchResponse<Item> searchResponse = itemService.boolQuery(name, brand);
-        log.info(searchResponse.hits().hits().toString());
-
-        List<Hit<Item>> listOfHits = searchResponse.hits().hits();
-        List<Item> listOfItems = new ArrayList<>();
-        for (Hit<Item> hit : listOfHits) {
-            listOfItems.add(hit.source());
-        }
-        return listOfItems;
+    @GetMapping("/boolQuery")
+    public List<Item> boolQuery(@RequestBody SearchRequestDto searchRequestDto) {
+        return itemService.boolQueryFieldAndValue(searchRequestDto);
     }
 
     @GetMapping("/autoSuggest/{name}")
