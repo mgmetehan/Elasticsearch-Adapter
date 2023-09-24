@@ -22,7 +22,10 @@ public class ESUtil {
     }
 
     public static MatchQuery buildMatchQueryForFieldAndValue(String fieldName, String searchValue) {
-        return new MatchQuery.Builder().field(fieldName).query(searchValue).build();
+        return new MatchQuery.Builder()
+                .field(fieldName)
+                .query(searchValue)
+                .build();
     }
 
     public static Supplier<Query> createBoolQuery(SearchRequestDto dto) {
@@ -38,11 +41,17 @@ public class ESUtil {
     }
 
     public static Query termQuery(String field, String value) {
-        return Query.of(q -> q.term(new TermQuery.Builder().field(field).value(value).build()));
+        return Query.of(q -> q.term(new TermQuery.Builder()
+                .field(field)
+                .value(value)
+                .build()));
     }
 
     public static Query matchQuery(String field, String value) {
-        return Query.of(q -> q.match(new MatchQuery.Builder().field(field).query(value).build()));
+        return Query.of(q -> q.match(new MatchQuery.Builder()
+                .field(field)
+                .query(value)
+                .build()));
     }
 
     public static MatchQuery createAutoSuggestMatchQuery(String name) {

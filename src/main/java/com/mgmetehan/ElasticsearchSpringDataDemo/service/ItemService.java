@@ -34,9 +34,7 @@ public class ItemService {
     public void addItemsFromJson() {
         log.info("Adding Items from Json");
         List<Item> Items = jsonDataService.readItemsFromJson();
-        for (Item Item : Items) {
-            itemRepository.save(Item);
-        }
+        itemRepository.saveAll(Items);
     }
 
     public Iterable<Item> getItems() {
@@ -93,11 +91,7 @@ public class ItemService {
     }
 
     public List<Item> searchItemsByNameAndBrand(String name, String brand) {
-        try {
-            return itemRepository.searchByNameAndBrand(name, brand);
-        } catch (Exception e) {
-            return Collections.emptyList();
-        }
+        return itemRepository.searchByNameAndBrand(name, brand);
     }
 
     public List<Item> boolQueryFieldAndValue(SearchRequestDto searchRequestDto) {
