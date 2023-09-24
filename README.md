@@ -1,4 +1,4 @@
-# Elasticsearch-Spring-Data-Demo
+# Elasticsearch-Workshop
 
 ## Icerik
 - [Elasticsearch Nedir?](#elasticsearch-nedir)
