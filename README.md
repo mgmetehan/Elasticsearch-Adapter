@@ -245,11 +245,6 @@ Bir alanin belirli bir araliga dusup dusmedigini kontrol eder.
 </details>
 
 <details>
-<summary>Match Phrase Query</summary>
-Metin teriminin tamamini iceren belgeleri dondurmek icin kullanilir.
-</details>
-
-<details>
 <summary>Fuzzy Query</summary>
 Benzer ancak kesin olmayan terimleri aramak icin kullanilir.
 </details>
@@ -284,6 +279,11 @@ Verileri toplamak, gruplamak ve analiz etmek icin kullanilir.
 Elasticsearch'in belgeleri siralamak icin kullanabileceginiz cesitli siralama islevleri vardir.
 </details>
 
+<details>
+<summary>Match Phrase Query</summary>
+Metin teriminin tamamini iceren belgeleri dondurmek icin kullanilir.
+</details>
+
 ## Elasticsearch'u Kimler Kullaniyor?
 
 <p align="center">
@@ -291,7 +291,7 @@ Elasticsearch'in belgeleri siralamak icin kullanabileceginiz cesitli siralama is
 </p>
 
 ## Endpoints ve Aciklamalari
-<table style="width:100%">
+<table style="width:70%">
   <tr>
       <th>Method</th>
       <th>Method Name</th>
