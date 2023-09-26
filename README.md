@@ -8,6 +8,7 @@
 - [Elasticsearch Kullanim Alanlari](#elasticsearch-kullanim-alanlari)
 - [Elasticsearch vs SQL](#elasticsearch-vs-sql)
 - [Elasticsearch Sorgu Tipleri](#elasticsearch-sorgu-tipleri)
+- [Keyword ve Text Type Turleri Arasindaki Farklar](#keyword-ve-text-type-turleri-arasindaki-farklar)
 - [Elasticsearch'u Kimler Kullaniyor?](#elasticsearchu-kimler-kullaniyor)
 - [Endpoints ve Aciklamalari](#endpoints-ve-aciklamalari)
 - [Elasticsearch'u Docker Uzerinde Calistirma](#elasticsearchu-docker-uzerinde-calistirma)
@@ -283,6 +284,19 @@ Elasticsearch'in belgeleri siralamak icin kullanabileceginiz cesitli siralama is
 <summary>Match Phrase Query</summary>
 Metin teriminin tamamini iceren belgeleri dondurmek icin kullanilir.
 </details>
+
+## Keyword ve Text Type Turleri Arasindaki Farklar
+### Keyword (Anahtar Kelime) Veri Turu:
+
+"keyword" veri turu, veriyi orijinal haliyle saklar ve analiz uygulamaz. Bu, verinin tam olarak ayni sekilde saklanmasini ve tam eslesmeye dayali sorgular(term query) icin kullanilmasini saglar.
+Ozellikle yapilandirilmis veya anahtar degerler icin uygundur. Ornegin, e-posta adresleri, SKU numaralari, ulke kodlari gibi verileri "keyword" olarak saklayabilirsiniz.
+
+### Text (Metin) Veri Turu:
+
+"text" veri turu, metin analizi uygulanarak veriyi indeksler. Bu, metindeki kelimeleri veya terimleri ayirir, kucuk harf donusumu yapar ve ozel karakterleri temizler.
+Metin icerigi uzerinde kelime tabanli aramalar, tam eslesme olmadan da sonuclar getirebilir. Bu nedenle metin icerigini daha iyi aranabilir hale getirir.
+Ozellikle metin icerigi aramalari yapmaniz gereken metin alanlari icin uygundur. Ornek olarak, bir makale metni veya bir kullanicinin aciklama alani "text" olarak saklanabilir.
+
 
 ## Elasticsearch'u Kimler Kullaniyor?
 

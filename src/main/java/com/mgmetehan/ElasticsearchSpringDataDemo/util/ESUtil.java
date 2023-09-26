@@ -54,15 +54,14 @@ public class ESUtil {
                 .build()));
     }
 
+    public static Query buildAutoSuggestQuery(String name) {
+        return Query.of(q -> q.match(createAutoSuggestMatchQuery(name)));
+    }
     public static MatchQuery createAutoSuggestMatchQuery(String name) {
         return new MatchQuery.Builder()
                 .field("name")
                 .query(name)
                 .analyzer("custom_index")
                 .build();
-    }
-
-    public static Query buildAutoSuggestQuery(String name) {
-        return Query.of(q -> q.match(createAutoSuggestMatchQuery(name)));
     }
 }
