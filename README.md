@@ -17,6 +17,11 @@
 - [Build & Run](#build--run)
 - [Kaynakca](#kaynakca)
 
+# Sunum Kaydi:
+[ElasticSearch'ün Derinliklerine Doğru](https://www.youtube.com/live/cWDXQbjYRgg?si=9c1OsdFPcjxBNikI)
+
+    https://www.youtube.com/live/cWDXQbjYRgg?si=OW0zTRod9lgAFKyE
+
 ## Elasticsearch Nedir?
 Elasticsearch, veri arama, analiz ve gorsellestirme islemlerini hizli ve etkili bir sekilde gerceklestirmenizi saglayan bir acik kaynakli veri arama ve analiz platformudur. 
 Elasticsearch, buyuk miktardaki verileri duzenli bir sekilde saklayabilen, hizli ve olceklenebilir bir veritabani ve arama motoru(**full-text search**) olarak dusunulebilir.
