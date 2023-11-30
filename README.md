@@ -1,4 +1,4 @@
-# Elasticsearch-Workshop
+# Elasticsearch-Adapter
 
 ## Icerik
 - [Elasticsearch Nedir?](#elasticsearch-nedir)
