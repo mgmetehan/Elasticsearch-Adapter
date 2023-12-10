@@ -11,9 +11,13 @@
 	<groupId>com.mgmetehan</groupId>
 	<artifactId>Elasticsearch-Spring-Data-Demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Elasticsearch-Spring-Data-Demo</name>
+    <packaging>pom</packaging>
+    <name>Elasticsearch-Spring-Data-Demo</name>
 	<description>Demo project for Spring Boot</description>
-	<properties>
+    <modules>
+        <module>client-adapter</module>
+    </modules>
+    <properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
@@ -61,6 +65,14 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>8</source>
+					<target>8</target>
 				</configuration>
 			</plugin>
 		</plugins>
